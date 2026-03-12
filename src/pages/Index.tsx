@@ -1,13 +1,40 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import HeroSection from "@/components/HeroSection";
+import ProblemSection from "@/components/ProblemSection";
+import BenefitsSection from "@/components/BenefitsSection";
+import GallerySection from "@/components/GallerySection";
+import PriceSection from "@/components/PriceSection";
+import OrderModal from "@/components/OrderModal";
+import OrderConfirmation from "@/components/OrderConfirmation";
 
 const Index = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [confirmation, setConfirmation] = useState<{
+    orderId: string;
+    paymentId: string;
+    amount: number;
+  } | null>(null);
+
+  if (confirmation) {
+    return <OrderConfirmation {...confirmation} />;
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <>
+      <HeroSection onOrderClick={() => setModalOpen(true)} />
+      <ProblemSection />
+      <BenefitsSection />
+      <GallerySection />
+      <PriceSection onOrderClick={() => setModalOpen(true)} />
+      <OrderModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSuccess={(data) => {
+          setModalOpen(false);
+          setConfirmation(data);
+        }}
+      />
+    </>
   );
 };
 
