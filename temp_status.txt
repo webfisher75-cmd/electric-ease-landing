@@ -1,0 +1,30 @@
+﻿On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   index.html
+	modified:   package-lock.json
+	modified:   package.json
+	modified:   src/components/OrderModal.tsx
+	modified:   src/pages/Index.tsx
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	index_css_history.txt
+	index_tsx_history.txt
+	public/images/
+	src/components/CountdownTimer.tsx
+	src/components/OrderDialog.tsx
+	src/components/RecentOrders.tsx
+	src/hooks/use-countdown.ts
+	src/integrations/supabase/orders.ts
+	src/lib/razorpay.ts
+	tailwind_history.txt
+	temp_log.txt
+	temp_log2.txt
+	temp_log_utf8.txt
+	temp_status.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")

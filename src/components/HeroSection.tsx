@@ -1,4 +1,5 @@
 import heroImg from "@/assets/cooktop-hero.png";
+import { CountdownTimer } from "@/components/CountdownTimer";
 
 interface HeroSectionProps {
   onOrderClick: () => void;
@@ -16,10 +17,14 @@ const HeroSection = ({ onOrderClick }: HeroSectionProps) => {
           <p className="text-lg text-muted-foreground mb-6 max-w-lg mx-auto md:mx-0">
             A simple and reliable cooktop that helps you cook easily at home without depending on gas cylinders.
           </p>
-          <div className="mb-6">
-            <span className="text-3xl font-bold text-primary">₹3,999</span>
+          <div className="mb-4">
+            <span className="text-3xl font-bold text-primary">₹3,499</span>
             <span className="ml-3 text-xl line-through text-price-strike">₹5,999</span>
-            <span className="ml-2 text-sm font-medium text-primary bg-primary/10 px-2 py-1 rounded">33% OFF</span>
+            <span className="ml-2 text-sm font-medium text-primary bg-primary/10 px-2 py-1 rounded">42% OFF</span>
+          </div>
+          <div className="mb-3 text-sm font-semibold text-red-600">⚠️ Only Few Pieces Left In Stock — Only 7 units left!</div>
+          <div className="mb-4 max-w-xs w-full">
+            <CountdownTimer />
           </div>
           <button
             onClick={onOrderClick}

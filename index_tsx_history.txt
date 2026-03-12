@@ -1,0 +1,85 @@
+﻿commit fef358de685f8c2c676722b9107ad44b9d175e72
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Thu Mar 12 20:41:51 2026 +0000
+
+    Connected to Lovable Cloud
+
+diff --git a/src/pages/Index.tsx b/src/pages/Index.tsx
+index 7130b54..45ca79c 100644
+--- a/src/pages/Index.tsx
++++ b/src/pages/Index.tsx
+@@ -1,13 +1,40 @@
+-// Update this page (the content is just a fallback if you fail to update the page)
++import { useState } from "react";
++import HeroSection from "@/components/HeroSection";
++import ProblemSection from "@/components/ProblemSection";
++import BenefitsSection from "@/components/BenefitsSection";
++import GallerySection from "@/components/GallerySection";
++import PriceSection from "@/components/PriceSection";
++import OrderModal from "@/components/OrderModal";
++import OrderConfirmation from "@/components/OrderConfirmation";
+ 
+ const Index = () => {
++  const [modalOpen, setModalOpen] = useState(false);
++  const [confirmation, setConfirmation] = useState<{
++    orderId: string;
++    paymentId: string;
++    amount: number;
++  } | null>(null);
++
++  if (confirmation) {
++    return <OrderConfirmation {...confirmation} />;
++  }
++
+   return (
+-    <div className="flex min-h-screen items-center justify-center bg-background">
+-      <div className="text-center">
+-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
+-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+-      </div>
+-    </div>
++    <>
++      <HeroSection onOrderClick={() => setModalOpen(true)} />
++      <ProblemSection />
++      <BenefitsSection />
++      <GallerySection />
++      <PriceSection onOrderClick={() => setModalOpen(true)} />
++      <OrderModal
++        open={modalOpen}
++        onClose={() => setModalOpen(false)}
++        onSuccess={(data) => {
++          setModalOpen(false);
++          setConfirmation(data);
++        }}
++      />
++    </>
+   );
+ };
+ 
+
+commit 732c726a58da2aa93df3ea379935753d3ddff160
+Author: Lovable <noreply@lovable.dev>
+Date:   Wed Jan 1 00:00:00 2025 +0000
+
+    template: vite_react_shadcn_ts_2026-01-16
+
+diff --git a/src/pages/Index.tsx b/src/pages/Index.tsx
+new file mode 100644
+index 0000000..7130b54
+--- /dev/null
++++ b/src/pages/Index.tsx
+@@ -0,0 +1,14 @@
++// Update this page (the content is just a fallback if you fail to update the page)
++
++const Index = () => {
++  return (
++    <div className="flex min-h-screen items-center justify-center bg-background">
++      <div className="text-center">
++        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
++        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
++      </div>
++    </div>
++  );
++};
++
++export default Index;

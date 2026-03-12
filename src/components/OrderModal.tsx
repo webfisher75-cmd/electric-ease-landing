@@ -8,7 +8,7 @@ interface OrderModalProps {
   onSuccess: (data: { orderId: string; paymentId: string; amount: number }) => void;
 }
 
-const PRICE = 3999;
+const PRICE = 3499;
 const PRODUCT_NAME = "Greenchef JAWA Cooktop";
 
 const indianStates = [

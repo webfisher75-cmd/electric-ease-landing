@@ -1,0 +1,13 @@
+﻿diff --git a/src/components/OrderModal.tsx b/src/components/OrderModal.tsx
+index b938462..c466304 100644
+--- a/src/components/OrderModal.tsx
++++ b/src/components/OrderModal.tsx
+@@ -8,7 +8,7 @@ interface OrderModalProps {
+   onSuccess: (data: { orderId: string; paymentId: string; amount: number }) => void;
+ }
+ 
+-const PRICE = 3999;
++const PRICE = 3499;
+ const PRODUCT_NAME = "Greenchef JAWA Cooktop";
+ 
+ const indianStates = [

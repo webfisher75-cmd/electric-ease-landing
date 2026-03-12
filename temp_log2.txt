@@ -1,0 +1,14 @@
+﻿e1fa984 Update site info for publish
+da5fcd2 Add real images and secrets
+dabb42d Changes
+9ed9da3 Connected to Lovable Cloud
+f386a06 Connected to Lovable Cloud
+fef358d Connected to Lovable Cloud
+e0260e8 Connected to Lovable Cloud
+f05eb05 Connected to Lovable Cloud
+d4aacd8 Connected to Lovable Cloud
+0ef9c9e Changes
+8071139 Work in progress
+8309af1 Update dependencies lockfile
+44448f7 Changes
+732c726 template: vite_react_shadcn_ts_2026-01-16
