@@ -1,7 +1,4 @@
 project_id = "oaozznhylepzjtqvsuzl"
 
-[functions.create-razorpay-order]
-verify_jwt = false
-
-[functions.verify-razorpay-payment]
+[functions.submit-order]
 verify_jwt = false

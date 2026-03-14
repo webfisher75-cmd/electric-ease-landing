@@ -24,7 +24,7 @@ const PriceSection = ({ onOrderClick }: PriceSectionProps) => {
         >
           Order Now — ₹3,499
         </button>
-        <p className="text-sm text-muted-foreground mt-3">Prepaid Only • Free Delivery</p>
+        <p className="text-sm text-muted-foreground mt-3">Cash on Delivery • Free Delivery</p>
       </div>
     </section>
   );

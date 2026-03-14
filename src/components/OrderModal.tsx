@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 interface OrderModalProps {
   open: boolean;
   onClose: () => void;
-  onSuccess: (data: { orderId: string; paymentId: string; amount: number }) => void;
+  onSuccess: (data: { orderId: string; amount: number }) => void;
 }
 
 const PRICE = 3499;
@@ -52,62 +52,15 @@ const OrderModal = ({ open, onClose, onSuccess }: OrderModalProps) => {
     setLoading(true);
 
     try {
-      // Create Razorpay order via edge function
-      const { data: orderData, error: orderError } = await supabase.functions.invoke("create-razorpay-order", {
-        body: { amount: totalPrice },
+      const { data, error } = await supabase.functions.invoke("submit-order", {
+        body: { ...form, quantity, price: totalPrice },
       });
 
-      if (orderError || !orderData?.order_id) {
-        throw new Error("Failed to create payment order");
+      if (error || !data?.success) {
+        throw new Error(data?.error || "Failed to place order");
       }
 
-      // Open Razorpay
-      const options = {
-        key: orderData.razorpay_key,
-        amount: totalPrice * 100,
-        currency: "INR",
-        name: PRODUCT_NAME,
-        description: `${quantity}x ${PRODUCT_NAME}`,
-        order_id: orderData.order_id,
-        handler: async (response: { razorpay_payment_id: string; razorpay_order_id: string; razorpay_signature: string }) => {
-          // Verify payment via edge function
-          const { data: verifyData, error: verifyError } = await supabase.functions.invoke("verify-razorpay-payment", {
-            body: {
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature,
-              order_details: {
-                ...form,
-                quantity,
-                price: totalPrice,
-              },
-            },
-          });
-
-          if (verifyError || !verifyData?.success) {
-            alert("Payment verification failed. Please contact support.");
-            setLoading(false);
-            return;
-          }
-
-          onSuccess({
-            orderId: verifyData.order_id,
-            paymentId: response.razorpay_payment_id,
-            amount: totalPrice,
-          });
-        },
-        prefill: {
-          name: form.name,
-          contact: form.phone,
-        },
-        theme: { color: "#16A34A" },
-        modal: {
-          ondismiss: () => setLoading(false),
-        },
-      };
-
-      const rzp = new (window as any).Razorpay(options);
-      rzp.open();
+      onSuccess({ orderId: data.order_id, amount: totalPrice });
     } catch (err) {
       alert("Something went wrong. Please try again.");
       setLoading(false);
@@ -174,7 +127,7 @@ const OrderModal = ({ open, onClose, onSuccess }: OrderModalProps) => {
             </div>
             <div className="flex justify-between text-sm">
               <span>Payment</span>
-              <span className="font-medium text-primary">Prepaid Only</span>
+              <span className="font-medium text-primary">Cash on Delivery</span>
             </div>
             <div className="border-t border-border pt-2 flex justify-between font-bold">
               <span>Total</span>
@@ -196,7 +149,7 @@ const OrderModal = ({ open, onClose, onSuccess }: OrderModalProps) => {
                 Processing...
               </>
             ) : (
-              `Proceed to Pay ₹${totalPrice.toLocaleString("en-IN")}`
+              `Place Order — ₹${totalPrice.toLocaleString("en-IN")}`
             )}
           </button>
         </div>
