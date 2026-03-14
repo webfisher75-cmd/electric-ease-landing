@@ -11,7 +11,6 @@ const Index = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmation, setConfirmation] = useState<{
     orderId: string;
-    paymentId: string;
     amount: number;
   } | null>(null);
 
